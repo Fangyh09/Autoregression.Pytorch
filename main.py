@@ -25,13 +25,6 @@ img0 = R[0]
 img1 = R[1]
 img2 = R[2]
 
-# print(img.shape)
-# h = 320
-# w = 355
-# from PIL import Image
-# img0 = Image.open('pics/p0.png"').convert('LA')
-# img1 = io.imread("pics/p1.png")
-# img2 = io.imread("pics/p2.png")
 print("img0", img0.shape)
 h = img0.shape[0]
 w = img0.shape[1]
@@ -53,12 +46,7 @@ mask_R1 = img1 >= R_thr
 mask_R2 = img2 >= R_thr
 mask_R = mask_R0 * mask_R1 * mask_R2
 mask_R = mask_R[0,0].float()
-# mask_R = torch.from_numpy(mask_R.astype(np.int))
-# R = mask_R
 
-# print(R.shape)
-# # print(320 * 355 * 5 - np.sum(R==-15))
-# plt.imshow(R[0])
 
 corr_module = Corr(window_size=9, sigma=3)
 if use_cuda:
@@ -66,9 +54,7 @@ if use_cuda:
 img3 = corr_module(img0, img1, img2, mask_R)
 
 
-### print ###
-# %debug
-# print(img3.shape)
+
 loga(img1)
 loga(img2)
 loga(img3)
