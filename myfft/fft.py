@@ -2,6 +2,21 @@ from myfft.fft_instance import get_fft_instance
 from myfft.fft_filters import get_fft_filter
 import numpy as np
 
+def fft_recompose(R, mu, sigma):
+    """Recompose a cascade by inverting the normalization and summing the
+    cascade levels.
+    
+    Parameters
+    ----------
+    R : array_like
+      
+    """
+    # R_rc = [(R[i, :, :] * sigma[i]) + mu[i] for i in range(len(mu))]
+    # R_rc = np.sum(np.stack(R_rc), axis=0)
+    R_rc = np.sum(np.stack(R), axis=0)
+
+    return R_rc
+
 def fft_decompose(R, ar_order=2, n_cascade_levels=8, R_thr=-10):    
     """
     R: [3xhxw]
@@ -101,6 +116,9 @@ def decomposition_fft(X, filter, fft_method, MASK=None):
     for k in range(len(filter["weights_1d"])):
         W_k = filter["weights_2d"][k, :, :]
         X_ = fft.irfft2(F * W_k)
+        # from boxx import loga
+        # loga(F)
+        # loga(W_k)
         X_decomp.append(X_)
 
         if MASK is not None:

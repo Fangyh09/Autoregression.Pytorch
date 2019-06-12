@@ -12,7 +12,7 @@ from ar import Corr
 from skimage import color
 from skimage import io
 from boxx import *
-from myfft.fft import fft_decompose
+from myfft.fft import fft_decompose, fft_recompose
 
 def read_grey(path):
     return color.rgb2gray(io.imread('pics/p0.png'))
@@ -31,8 +31,25 @@ img1 = R[1]
 img2 = R[2]
 
 res = fft_decompose(R, ar_order=2, n_cascade_levels=8, R_thr=-10)
-what(res)
+# what(res)
 
+
+print(">>> ori img0")
+loga(img0)
+print(res[0].keys())
+for i in range(8):
+    img = res[0]["cascade_levels"][i]
+    plt.imshow(img)
+    plt.show()
+R = res[0]["cascade_levels"]
+print("res[0].keys()", res[0].keys())
+
+out_img = fft_recompose(R)
+
+print(">>> out_img")
+loga(out_img)
+plt.imshow(out_img)
+# raise ValueError()
 
 print("img0", img0.shape)
 h = img0.shape[0]

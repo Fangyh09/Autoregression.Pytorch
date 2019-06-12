@@ -2,6 +2,11 @@
 
 AR(2) auto regression model.
 
+Support:
+* AR(2)
+* FFT decompose
+
+
 ## Installation
 `git clone https://github.com/Fangyh09/Autoregression.Pytorch.git`
 ## Usage
