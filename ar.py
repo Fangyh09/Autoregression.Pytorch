@@ -91,7 +91,7 @@ class Corr(torch.nn.Module):
         img2 = (_img2 - u2) / sigma2
         img3 = (_img3 - u3) / sigma3
 
-        out_img = torch.zeros((1, 1, h, w)).cuda()
+        out_img = torch.zeros((1, 1, h, w))
         gamma2 = _ssim(img1, img3, window, self.window_size, channel,
                      self.size_average)
         gamma1 = _ssim(img2, img3, window, self.window_size, channel,
@@ -101,7 +101,7 @@ class Corr(torch.nn.Module):
         print(">>>gamma1")
         loga(gamma1[0,0][mask_R > 0])
 #         gamma2, gamma1 = self._adjust_lag2_corrcoef2(gamma2, gamma1)
-        phi2, phi1, phi0 = self.get_phi(gamma2, gamma1)
+        phi2, phi1, phi0 = self.get_phi(gamma2, gamma1, mask_R)
         print(">>>phi2")
         loga(phi2[0,0][mask_R > 0])
         print(">>>phi1")
@@ -112,4 +112,6 @@ class Corr(torch.nn.Module):
         out_img[0,0][mask_R > 0] = out[0,0][mask_R > 0].float()
 
         out_img[0,0][mask_R <= 0] = -15 #torch.mean(_img1[0,0][mask_R <= 0]).float()
+        # if out.is_cuda():
+        #     out_img = out_img.cuda()
         return out_img
