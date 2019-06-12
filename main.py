@@ -1,5 +1,8 @@
 import numpy as np
 import sys
+sys.path.append('./')
+sys.path.append('./fft')
+
 import torch
 if sys.platform == "darwin":
     import matplotlib
@@ -9,6 +12,7 @@ from ar import Corr
 from skimage import color
 from skimage import io
 from boxx import *
+from myfft.fft import fft_decompose
 
 def read_grey(path):
     return color.rgb2gray(io.imread('pics/p0.png'))
@@ -25,6 +29,10 @@ R = R["arr_0"]
 img0 = R[0]
 img1 = R[1]
 img2 = R[2]
+
+res = fft_decompose(R, ar_order=2, n_cascade_levels=8, R_thr=-10)
+what(res)
+
 
 print("img0", img0.shape)
 h = img0.shape[0]
