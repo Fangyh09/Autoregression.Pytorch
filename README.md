@@ -19,8 +19,8 @@ python main.py
 
 
 ## TODOs
-* add fft decompose
-* add optical flow
+* Add fft decompose
+* Add optical flow
 
 ## History
 
