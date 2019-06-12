@@ -18,9 +18,11 @@ python main.py
 ![image](pics/p3.png)
 
 
-
+## TODOs
+* add fft decompose
+* add optical flow
 
 ## History
 
 ## Credits
-Thanks @ssim-pytorch
+Thanks @ssim-pytorch, @pysteps
