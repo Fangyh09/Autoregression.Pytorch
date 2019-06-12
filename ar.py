@@ -13,11 +13,18 @@ def gaussian(window_size, sigma):
     return gauss / gauss.sum()
 
 
-def create_window(window_size, channel, sigma=1.5):
+def create_window(window_size, channel, sigma=1.5, allones=False):
+    print("window_size", window_size)
+    if allones:
+        return torch.ones((1, 1, window_size, window_size))
     _1D_window = gaussian(window_size, sigma).unsqueeze(1)
     _2D_window = _1D_window.mm(_1D_window.t()).float().unsqueeze(0).unsqueeze(0)
     window = Variable(
         _2D_window.expand(channel, 1, window_size, window_size).contiguous())
+    # print(">>> windows")
+    # print(window)
+    # print(window.shape)
+    # raise ValueError()
     return window
 
 def _ssim(img1, img2, window, window_size, channel, size_average=True):
@@ -39,13 +46,13 @@ def _ssim(img1, img2, window, window_size, channel, size_average=True):
 
 
 class Corr(torch.nn.Module):
-    def __init__(self, window_size=11, size_average=True, sigma=1.5):
+    def __init__(self, window_size=11, size_average=True, sigma=1.5, allones=False):
         super(Corr, self).__init__()
         self.window_size = window_size
         self.size_average = size_average
         self.channel = 1
         self.sigma = sigma
-        self.window = create_window(window_size, self.channel, sigma=self.sigma)
+        self.window = create_window(window_size, self.channel, sigma=self.sigma, allones=allones)
 
     def _adjust_lag2_corrcoef2(self, gamma_2, gamma_1):
         gamma_2 = max(gamma_2, 2 * gamma_1 * gamma_2 - 1)

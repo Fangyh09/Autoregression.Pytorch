@@ -13,6 +13,7 @@ from boxx import *
 def read_grey(path):
     return color.rgb2gray(io.imread('pics/p0.png'))
 
+
 use_cuda = False
 # if torch.has_cudnn:
 #     use_cuda = True
@@ -47,8 +48,11 @@ mask_R2 = img2 >= R_thr
 mask_R = mask_R0 * mask_R1 * mask_R2
 mask_R = mask_R[0,0].float()
 
+### patch level ###
+# corr_module = Corr(window_size=9, sigma=3)
 
-corr_module = Corr(window_size=9, sigma=3)
+### image level ###
+corr_module = Corr(allones=True)
 if use_cuda:
     corr_module = corr_module.cuda()
 img3 = corr_module(img0, img1, img2, mask_R)
