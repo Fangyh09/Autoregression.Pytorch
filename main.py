@@ -17,15 +17,6 @@ use_cuda = False
 # if torch.has_cudnn:
 #     use_cuda = True
 
-img0 = read_grey("pics/p0.png")
-img1 = read_grey("pics/p1.png")
-img2 = read_grey("pics/p2.png")
-
-print("img0", img0[0,0])
-loga(img0)
-
-print("img1")
-loga(img1)
 
 R = np.load("pics/R.npz")
 R = R["arr_0"]
