@@ -56,10 +56,66 @@ def _ssim_image(img1, img2, window, window_size, channel, size_average=True):
     EX2 = F.conv2d(img1 * img1, window, groups=channel)
     EY2 = F.conv2d(img2 * img2, window, groups=channel)
     EXY = F.conv2d(img1 * img2, window, groups=channel)
+
+    var_list = [EX, EY, EX2, EY2, EXY] ##adl
+    for idx,x in enumerate(var_list): ##adl
+        var_names = "EX, EY, EX2, EY2, EXY".split(",") ##adl
+        cur_name = var_names[idx] ##adl
+        print("-------print "+ cur_name + "------") ##adl
+        import alog ##adl
+        from pprint import pprint ##adl
+        alog.info(cur_name) ##adl
+        print(">>> type(x) = ", type(x)) ##adl
+        if hasattr(x, "shape"): ##adl
+            print(">>> " + cur_name + ".shape", x.shape) ##adl
+        if type(x) is list: ##adl
+            print(">>> len(" + cur_name + ") = ", len(x)) ##adl
+            pprint(x) ##adl
+        else: ##adl
+            pprint(x) ##adl
+            pass ##adl
+        print("------------------------\n") ##adl
+
+    var_list = [img1, img1*img1, img2, img2*img2, img1*img2] ##adl
+    for idx,x in enumerate(var_list): ##adl
+        var_names = "img1, img1*img1, img2, img2*img2, img1*img2".split(",") ##adl
+        cur_name = var_names[idx] ##adl
+        print("-------print "+ cur_name + "------") ##adl
+        import alog ##adl
+        from pprint import pprint ##adl
+        alog.info(cur_name) ##adl
+        print(">>> type(x) = ", type(x)) ##adl
+        if hasattr(x, "shape"): ##adl
+            print(">>> " + cur_name + ".shape", x.shape) ##adl
+        if type(x) is list: ##adl
+            print(">>> len(" + cur_name + ") = ", len(x)) ##adl
+            pprint(x) ##adl
+        else: ##adl
+            pprint(x) ##adl
+            pass ##adl
+        print("------------------------\n") ##adl
     
     corr = (EXY - EX*EY) / torch.sqrt(EX2 - EX*EX) / torch.sqrt(EY2 - EY*EY)
     corr_ = corr[0,0]
-
+    var_list = [corr_] ##adl
+    for idx,x in enumerate(var_list): ##adl
+        var_names = "corr_".split(",") ##adl
+        cur_name = var_names[idx] ##adl
+        print("-------print "+ cur_name + "------") ##adl
+        import alog ##adl
+        from pprint import pprint ##adl
+        alog.info(cur_name) ##adl
+        print(">>> type(x) = ", type(x)) ##adl
+        if hasattr(x, "shape"): ##adl
+            print(">>> " + cur_name + ".shape", x.shape) ##adl
+        if type(x) is list: ##adl
+            print(">>> len(" + cur_name + ") = ", len(x)) ##adl
+            pprint(x) ##adl
+        else: ##adl
+            pprint(x) ##adl
+            pass ##adl
+        print("------------------------\n") ##adl
+    # raise ValueError()
     return corr 
 
 
@@ -72,6 +128,7 @@ class Corr(torch.nn.Module):
         self.channel = 1
         self.sigma = sigma
         # self.window = create_window(window_size, self.channel, sigma=self.sigma, image_level=image_level)
+        # assert image_level 
         self.image_level = image_level
 
     def _adjust_lag2_corrcoef2(self, gamma_2, gamma_1):
@@ -81,9 +138,9 @@ class Corr(torch.nn.Module):
         return gamma_2, gamma_1
 
     def get_phi(self, gamma2, gamma1, mask_R):
-        if gamma1[0,0].shape() == mask_R.shape():
-            assert (1 - gamma1[0,0][mask_R > 0] > 0).all() 
-        gamma1[0,0][mask_R <= 0] = 0
+        # if gamma1[0,0].shape() == mask_R.shape():
+        #     assert (1 - gamma1[0,0][mask_R > 0] > 0).all() 
+        # gamma1[0,0][mask_R <= 0] = 0
         phi1 = (gamma1 * gamma1 * (1 - gamma2)) / (1 - gamma1 * gamma1)
         phi2 = (gamma2 - gamma1 * gamma1) / (1 - gamma1 * gamma1)
         phi0 = 1 - phi2 * gamma2 - phi1 * gamma1
@@ -127,28 +184,77 @@ class Corr(torch.nn.Module):
         img2 = (_img2 - u2) / sigma2
         img3 = (_img3 - u3) / sigma3
 
+        var_list = [img1, img2, img3] ##adl
+        for idx,x in enumerate(var_list): ##adl
+            var_names = "img1, img2, img3".split(",") ##adl
+            cur_name = var_names[idx] ##adl
+            print("-------print "+ cur_name + "------") ##adl
+            import alog ##adl
+            from pprint import pprint ##adl
+            alog.info(cur_name) ##adl
+            print(">>> type(x) = ", type(x)) ##adl
+            if hasattr(x, "shape"): ##adl
+                print(">>> " + cur_name + ".shape", x.shape) ##adl
+            if type(x) is list: ##adl
+                print(">>> len(" + cur_name + ") = ", len(x)) ##adl
+                pprint(x) ##adl
+            else: ##adl
+                pprint(x) ##adl
+                pass ##adl
+            print("------------------------\n") ##adl
+        var_list = [window] ##adl
+        for idx,x in enumerate(var_list): ##adl
+            var_names = "window".split(",") ##adl
+            cur_name = var_names[idx] ##adl
+            print("-------print "+ cur_name + "------") ##adl
+            import alog ##adl
+            from pprint import pprint ##adl
+            alog.info(cur_name) ##adl
+            print(">>> type(x) = ", type(x)) ##adl
+            if hasattr(x, "shape"): ##adl
+                print(">>> " + cur_name + ".shape", x.shape) ##adl
+            if type(x) is list: ##adl
+                print(">>> len(" + cur_name + ") = ", len(x)) ##adl
+                pprint(x) ##adl
+            else: ##adl
+                pprint(x) ##adl
+                pass ##adl
+            print("------------------------\n") ##adl
+        
+        # raise ValueError()
         out_img = torch.zeros((1, 1, h, w))
-        gamma2 = _ssim(img1, img3, window, self.window_size, channel,
+        img1_seg = img1.clone()
+        img2_seg = img2.clone()
+        img3_seg = img3.clone()
+        img1_seg[0,0][mask_R <= 0] = 0
+        img2_seg[0,0][mask_R <= 0] = 0
+        img3_seg[0,0][mask_R <= 0] = 0
+
+        gamma2 = _ssim(img1_seg, img3_seg, window, self.window_size, channel,
                      self.size_average)
-        gamma1 = _ssim(img2, img3, window, self.window_size, channel,
+        gamma1 = _ssim(img2_seg, img3_seg, window, self.window_size, channel,
                       self.size_average)
-        print(">>>gamma2")
-        #loga(gamma2[0,0][mask_R > 0])
-        print(">>>gamma1")
-        #loga(gamma1[0,0][mask_R > 0])
+        print(">>>gamma2", gamma2)
+        # loga(gamma2[0,0][mask_R > 0])
+        # loga(gamma2)
+        print(">>>gamma1", gamma1)
+        # loga(gamma1[0, 0][mask_R > 0])
+        #loga(gamma1)
+        # raise ValueError()
+     
+        
 #         gamma2, gamma1 = self._adjust_lag2_corrcoef2(gamma2, gamma1)
         phi2, phi1, phi0 = self.get_phi(gamma2, gamma1, mask_R)
         print(">>>phi2")
-        # loga(phi2[0,0][mask_R > 0])
+        # loga(phi2[0,0])
         print(">>>phi1")
-        # loga(phi1[0,0][mask_R > 0])
+        # loga(phi1[0,0])
 
         out = img1 * phi2 + img2 * phi1
         out = u3 + out * sigma3
 
         print(">>> new values")
-        #loga(out[0,0][mask_R > 0].float())
-
+        # loga(out[0,0][mask_R > 0].float())
 
         out_img[0,0][mask_R > 0] = out[0,0][mask_R > 0].float()
 
