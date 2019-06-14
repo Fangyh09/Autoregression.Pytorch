@@ -20,7 +20,7 @@ python main.py
 ![image](pics/p2.png)
 
 ### output img3
-![image](pics/p3.png)
+![image](pics/p3_2.png)
 
 
 ## TODOs
