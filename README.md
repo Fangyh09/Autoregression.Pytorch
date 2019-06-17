@@ -14,6 +14,7 @@ Support:
 python main.py
 ```
 ## Screenshot-FFT
+`python main_image_fft.py`
 ### input img0, img1, img2
 <!-- ![image](pics/p0.png)
 ![image](pics/p1.png)
@@ -28,6 +29,7 @@ python main.py
 ![image](pics/R3.png)
 
 ## Screenshot-NoFFT
+`python main_image.py`
 ### input img0, img1, img2
 ![image](pics/nofft_R0.png)
 ![image](pics/nofft_R1.png)
