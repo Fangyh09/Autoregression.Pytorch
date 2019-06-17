@@ -13,6 +13,27 @@ Support:
 ```
 python main.py
 ```
+
+## Screenshot-NoFFT local_autoregression
+### input img0, img1, img2
+![image](pics/nofft_R0_k=3.png)
+![image](pics/nofft_R1_k=3.png)
+![image](pics/nofft_R2_k=3.png)
+
+### output img3
+![image](pics/nofft_R3_k=3.png)
+
+
+## Screenshot- FFT local_autoregression
+### input img0, img1, img2
+![image](pics/R0_k=3.png)
+![image](pics/R1_k=3.png)
+![image](pics/R2_k=3.png)
+
+### output img3
+![image](pics/out_k=3.png)
+
+
 ## Screenshot-FFT
 `python main_image_fft.py`
 ### input img0, img1, img2
@@ -43,6 +64,7 @@ python main.py
 
 ## TODOs
 * [x] Add fft decompose
+* [x] Add local conv
 * [ ] Add optical flow
 
 ## History

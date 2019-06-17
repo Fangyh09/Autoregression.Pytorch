@@ -8,7 +8,7 @@ if sys.platform == "darwin":
     import matplotlib
     matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-from ar_image import Corr
+from ar_level import Corr
 from skimage import color
 from skimage import io
 from boxx import *
@@ -21,6 +21,8 @@ def read_grey(path):
 
 
 use_cuda = False
+# SAVE_IMG = False
+SAVE_IMG = True
 # if torch.has_cudnn:
 #     use_cuda = True
 
@@ -73,19 +75,35 @@ mask_R = mask_R0 * mask_R1 * mask_R2
 mask_R = mask_R[0,0].float()
 
 ### patch level ###
-# corr_module = Corr(window_size=9, sigma=3)
+corr_module = Corr(window_size=3, sigma=1)
 
 ### image level ###
-corr_module = Corr(image_level=True)
+# corr_module = Corr(image_level=True)
 if use_cuda:
     corr_module = corr_module.cuda()
 img3 = corr_module(img0, img1, img2, mask_R)
 
 
-vis_radar(img0[0,0].data.numpy(), "nofft_R0.png")
-vis_radar(img1[0,0].data.numpy(), "nofft_R1.png")
-vis_radar(img2[0,0].data.numpy(), "nofft_R2.png")
-vis_radar(img3[0,0].data.numpy(), "nofft_R3.png")
+img0_data = img0[0,0].data.numpy()
+img1_data = img1[0,0].data.numpy()
+img2_data = img2[0,0].data.numpy()
+img3_data = img3[0,0].data.numpy()
+
+loga(img0_data)
+loga(img1_data)
+loga(img2_data)
+loga(img3_data)
+
+if SAVE_IMG:
+    vis_radar(img0_data, "nofft_R0.png")
+    vis_radar(img1_data, "nofft_R1.png")
+    vis_radar(img2_data, "nofft_R2.png")
+    vis_radar(img3_data, "nofft_R3.png")
+else:
+    vis_radar(img0_data)
+    vis_radar(img1_data)
+    vis_radar(img2_data)
+    vis_radar(img3_data)
 
 plt.imshow(img3[0,0].float())
 plt.show()

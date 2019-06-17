@@ -188,4 +188,4 @@ def vis_radar(img, save_name=None):
     if save_name is None:
         plt.show()
     else:
-        plt.savefig(save_name)
+        plt.savefig(save_name, bbox_inches='tight')
