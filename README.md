@@ -13,19 +13,35 @@ Support:
 ```
 python main.py
 ```
-## Screenshot
+## Screenshot-FFT
 ### input img0, img1, img2
-![image](pics/p0.png)
+<!-- ![image](pics/p0.png)
 ![image](pics/p1.png)
-![image](pics/p2.png)
+![image](pics/p2.png) -->
+![image](pics/R0.png)
+![image](pics/R1.png)
+![image](pics/R2.png)
+
 
 ### output img3
-![image](pics/p3_2.png)
+<!-- ![image](pics/p3_2.png) -->
+![image](pics/R3.png)
+
+## Screenshot-NoFFT
+### input img0, img1, img2
+![image](pics/nofft_R0.png)
+![image](pics/nofft_R1.png)
+![image](pics/nofft_R2.png)
+
+
+### output img3
+![image](pics/nofft_R3.png)
+
 
 
 ## TODOs
-* Add fft decompose
-* Add optical flow
+* [x] Add fft decompose
+* [ ] Add optical flow
 
 ## History
 
