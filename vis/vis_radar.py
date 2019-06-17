@@ -174,15 +174,18 @@ def get_colormap(type, units='mm/h', colorscale='pysteps'):
         return cm.jet, colors.Normalize(), None, None
 
         
-def vis_radar(img):
+def vis_radar(img, save_name=None):
     """img: numpy
     """
     # revert back from dBZ
     img = 10.0 ** (img / 10.0)
     print(">>>here is img")
-    loga(img)
+    # loga(img)
 
     cmap, norm, clevs, clevsStr = get_colormap("intensity", units='mm/h', colorscale='pysteps')
     plt.imshow(img, cmap=cmap, norm=norm,
                interpolation='nearest')
-    plt.show()
+    if save_name is None:
+        plt.show()
+    else:
+        plt.savefig(save_name)

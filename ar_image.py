@@ -246,19 +246,52 @@ class Corr(torch.nn.Module):
 #         gamma2, gamma1 = self._adjust_lag2_corrcoef2(gamma2, gamma1)
         phi2, phi1, phi0 = self.get_phi(gamma2, gamma1, mask_R)
         print(">>>phi2")
+        print(phi2)
         # loga(phi2[0,0])
         print(">>>phi1")
+        print(phi1)
         # loga(phi1[0,0])
-
-        out = img1 * phi2 + img2 * phi1
+        # raise ValueError()
+        
+        print("img2.shape", img2.shape)
+        print("img3.shape", img3.shape)
+        print("phi2.shape", phi2.shape)
+        outx = 0
+        outy = 0
+        print("img2[0,0]", img2[0,0,outx,outy])
+        print("img3[0,0]", img3[0,0,outx,outy])
+        out = img2 * phi2 + img3 * phi1
+        print("out[0,0]", out[0,0,outx,outy])
         out = u3 + out * sigma3
+
+        # sleep(3)
 
         print(">>> new values")
         # loga(out[0,0][mask_R > 0].float())
+    
+        out_img[0,0][mask_R > 0.5] = out[0,0][mask_R > 0.5].float()
 
-        out_img[0,0][mask_R > 0] = out[0,0][mask_R > 0].float()
-
-        out_img[0,0][mask_R <= 0] = -15 #torch.mean(_img1[0,0][mask_R <= 0]).float()
+        # for i in range(50, 200):
+        #     for j in range(50, 200):
+        #         if mask_R[i, j] > 0:
+        #             print(">>>i", i)
+        #             print(">>>j", j)
+        #             print(mask_R[i,j])
+        #             raise ValueError()
+        # raise ValueError()                
+        # out_img[0,0][mask_R <= 0] = -15 / 8.0 #torch.mean(_img1[0,0][mask_R <= 0]).float()
+        assert type(out_img) == type(mask_R)
+        out_img[0,0][mask_R <= 0.5] = -15 #torch.mean(_img1[0,0][mask_R <= 0]).float()
+        # out_img[0,0][mask_R <= 0.5] = -15 
+        # check mask_R
+        # 很大值(异常值)的时候, 紫色
+        
+        # out_img[0,0][mask_R > 0] = 3
+        # out_img[0,0][mask_R <= 0] = 3
+        import matplotlib.pyplot as plt
+        # plt.imshow(out_img[0,0])
+        # plt.show()
+        # raise ValueError()
         # if out.is_cuda():
         #     out_img = out_img.cuda()
         return out_img
